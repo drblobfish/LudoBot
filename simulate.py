@@ -11,6 +11,7 @@ p.setGravity(0,0,-9.8)
 planeId = p.loadURDF("plane.urdf")
 
 p.loadSDF("world.sdf")
+p.loadURDF("body.urdf")
 
 while True:
 	time.sleep(1/60)
