@@ -1,22 +1,21 @@
 import pyrosim.pyrosim as pyrosim
 
-pyrosim.Start_SDF("boxes.sdf")
 
-length= 1
-width= 3
-height = 1
+def Create_World():
 
-x= 0
-y = 0
-z = height/2
+	pyrosim.Start_SDF("world.sdf")
 
-hauteur_tour = 10
+	length= 1
+	width= 1
+	height = 1
 
-current_height = 0
+	x= 0
+	y = 0
+	z = height/2
 
-for i in range(hauteur_tour):
-	pyrosim.Send_Cube(name="Box"+str(i), pos=[x,y,current_height+height * (0.9**i)/2], size = [length * (0.9**i),width * (0.9**i),height * (0.9**i)])
-	#print(current_height)
-	current_height+=height * (0.9**(i))
+	pyrosim.Send_Cube(name="Box", pos=[x,y,z], size = [length,width,height])
 
-pyrosim.End()
+	pyrosim.End()
+
+
+Create_World()
