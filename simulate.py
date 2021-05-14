@@ -2,6 +2,7 @@ import pybullet as p
 import pybullet_data
 import time
 import pyrosim.pyrosim as pyrosim
+import numpy as np
 
 
 
@@ -17,12 +18,15 @@ p.loadURDF("body.urdf")
 
 pyrosim.Prepare_To_Simulate("body.urdf")
 
-while True:
+backLegSensorValues = np.zeros(1000)
+
+for i in range(1000):
 	time.sleep(1/60)
 	p.stepSimulation()
 
-	backLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("LegBack")
-	print(backLegTouch)
+	backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("LegBack")
 
+
+np.save('data/backLegSensorValues.npy',backLegSensorValues)
 
 p.disconnect()
