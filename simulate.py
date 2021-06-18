@@ -8,9 +8,13 @@ import random
 
 NUMBER_STEP = 1000
 
-AMPLITUDE = 0.8
-FREQUENCY = 20
-PHASE_OFFSET = 0
+AMPLITUDE_FRONT = 0.5
+FREQUENCY_FRONT = 10
+PHASE_OFFSET_FRONT = 0
+
+AMPLITUDE_BACK = 0.5
+FREQUENCY_BACK = 20
+PHASE_OFFSET_BACK = -np.pi/5
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -27,9 +31,11 @@ pyrosim.Prepare_To_Simulate("body.urdf")
 backLegSensorValues = np.zeros(NUMBER_STEP)
 frontLegSensorValues = np.zeros(NUMBER_STEP)
 
-targetAngle = AMPLITUDE * np.sin(FREQUENCY*np.linspace(-np.pi,np.pi,NUMBER_STEP)+PHASE_OFFSET)
-np.save('data/targetAngle.npy',targetAngle)
+targetAngleFront = AMPLITUDE_FRONT * np.sin(FREQUENCY_FRONT*(np.linspace(-np.pi,np.pi,NUMBER_STEP)+PHASE_OFFSET_FRONT))
+np.save('data/targetAngleFront.npy',targetAngleFront)
 
+targetAngleBack = AMPLITUDE_BACK * np.sin(FREQUENCY_BACK*(np.linspace(-np.pi,np.pi,NUMBER_STEP)+PHASE_OFFSET_BACK))
+np.save('data/targetAngleBack.npy',targetAngleBack)
 
 
 for i in range(NUMBER_STEP):
@@ -44,14 +50,14 @@ for i in range(NUMBER_STEP):
 		bodyIndex = robot,
 		jointName = "Torso_Leg_B",
 		controlMode = p.POSITION_CONTROL,
-		targetPosition = targetAngle[i],
+		targetPosition = targetAngleBack[i],
 		maxForce = 100)
 
 	pyrosim.Set_Motor_For_Joint(
 		bodyIndex = robot,
 		jointName = "Torso_Leg_F",
 		controlMode = p.POSITION_CONTROL,
-		targetPosition = targetAngle[i],
+		targetPosition = targetAngleFront[i],
 		maxForce = 100)
 
 
