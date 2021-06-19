@@ -1,0 +1,7 @@
+import numpy as np
+
+NUMBER_STEP = 1000
+
+AMPLITUDE = 0.5
+FREQUENCY = 10
+PHASE_OFFSET = 0
