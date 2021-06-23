@@ -33,6 +33,21 @@ def Create_Robot():
 
 	pyrosim.End()
 
+def generate_brain():
+
+	pyrosim.Start_NeuralNetwork("brain.nndf")
+	pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+
+	pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LegFront")
+
+	pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "LegBack")
+
+	pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_Leg_B")
+
+	pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_Leg_F")
 
 Create_World()
 Create_Robot()
+
+generate_brain()
+
