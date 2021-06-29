@@ -24,6 +24,9 @@ class SIMULATION:
 		self.world = WORLD()
 		self.robot = ROBOT()
 
+	def Get_Fitness(self):
+		self.robot.Get_Fitness()
+
 	def Run(self):
 
 		for t in range(c.NUMBER_STEP):

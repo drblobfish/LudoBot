@@ -23,7 +23,10 @@ class ROBOT:
 		self.Prepare_To_Act()
 		self.nn = NEURAL_NETWORK("brain.nndf")
 
-		
+	
+	def Get_Fitness(self):
+		p.getLinkState(self.robot,0)
+		pass
 
 	def Prepare_To_Sense(self):
 		self.sensors={}
