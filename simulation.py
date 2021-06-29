@@ -28,7 +28,7 @@ class SIMULATION:
 
 		for t in range(c.NUMBER_STEP):
 
-			time.sleep(1/240)
+			#time.sleep(1/240)
 			p.stepSimulation()
 
 			self.robot.Sense(t)
