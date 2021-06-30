@@ -9,13 +9,24 @@ class SOLUTION:
 	def __init__(self):
 		self.weight = 2*(np.random.rand(3,2)-0.5)
 
-	def Evaluate(self):
+	def Mutate(self):
+		randomCol = random.randint(0,2)
+		randomRow = random.randint(0,1)
+
+		self.weight[randomCol,randomRow] = random.random()*2-1
+
+	def Evaluate(self,GUI = False):
 		
 		self.Create_World()
 		self.Create_Robot()
 		self.generate_brain()
 
-		os.system("python3 simulate.py")
+		os.system("python3 simulate.py "+ ("GUI" if GUI else "DIRECT"))
+
+		with open("fitness.txt","r") as fitnessfile :
+			self.fitness = float(fitnessfile.read())
+			#print(self.fitness)
+
 
 	def Create_World(self):
 

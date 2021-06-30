@@ -13,9 +13,10 @@ from robot import ROBOT
 
 
 class SIMULATION:
-	def __init__(self):
+	def __init__(self,GUI):
+		self.GUI = GUI
 
-		self.physicsClient = p.connect(p.GUI)
+		self.physicsClient = p.connect(p.GUI if self.GUI else p.DIRECT)
 		p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 		p.setGravity(0,0,-9.8)
@@ -26,12 +27,15 @@ class SIMULATION:
 
 	def Get_Fitness(self):
 		self.robot.Get_Fitness()
+		
 
 	def Run(self):
 
 		for t in range(c.NUMBER_STEP):
 
-			#time.sleep(1/240)
+			if self.GUI :
+				time.sleep(1/240)
+				
 			p.stepSimulation()
 
 			self.robot.Sense(t)

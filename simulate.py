@@ -1,6 +1,10 @@
+import sys
+
 from simulation import SIMULATION
 
-simulation = SIMULATION()
+GUI = (sys.argv[1] == 'GUI')
+
+simulation = SIMULATION(GUI)
 
 simulation.Run()
 

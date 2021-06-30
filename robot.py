@@ -25,8 +25,13 @@ class ROBOT:
 
 	
 	def Get_Fitness(self):
-		p.getLinkState(self.robot,0)
-		pass
+		self.stateOfLink0 = p.getLinkState(self.robot,0)
+		self.position0fLink0 = self.stateOfLink0[0]
+		self.xCoordOfLink0 = self.position0fLink0[0]
+
+		with open('fitness.txt','w') as fitnessFile :
+			fitnessFile.write(str(self.xCoordOfLink0))
+		
 
 	def Prepare_To_Sense(self):
 		self.sensors={}
@@ -52,7 +57,7 @@ class ROBOT:
 
 	def Think(self,t):
 		self.nn.Update()
-		self.nn.Print()
+		#self.nn.Print()
 
 	def Act(self,t):
 
