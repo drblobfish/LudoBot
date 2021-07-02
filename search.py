@@ -1,12 +1,12 @@
 import os
-from hillclimber import HILL_CLIMBER
+from parallelhillclimber import PARALLEL_HILL_CLIMBER
 
 
-hc = HILL_CLIMBER()
+phc = PARALLEL_HILL_CLIMBER()
 
-hc.Evolve()
+phc.Evolve()
 
-hc.ShowBest()
+phc.ShowBest()
 
 '''
 for i in range(5):

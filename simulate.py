@@ -4,7 +4,9 @@ from simulation import SIMULATION
 
 GUI = (sys.argv[1] == 'GUI')
 
-simulation = SIMULATION(GUI)
+solutionID = int(sys.argv[2])
+
+simulation = SIMULATION(GUI,solutionID)
 
 simulation.Run()
 

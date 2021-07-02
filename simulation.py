@@ -13,7 +13,9 @@ from robot import ROBOT
 
 
 class SIMULATION:
-	def __init__(self,GUI):
+	def __init__(self,GUI,solutionID):
+
+		self.solutionID = solutionID
 		self.GUI = GUI
 
 		self.physicsClient = p.connect(p.GUI if self.GUI else p.DIRECT)
@@ -23,7 +25,7 @@ class SIMULATION:
 
 
 		self.world = WORLD()
-		self.robot = ROBOT()
+		self.robot = ROBOT(self.solutionID)
 
 	def Get_Fitness(self):
 		self.robot.Get_Fitness()

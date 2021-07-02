@@ -6,7 +6,10 @@ import pyrosim.pyrosim as pyrosim
 
 
 class SOLUTION:
-	def __init__(self):
+	def __init__(self,myID):
+
+		self.myID = myID
+
 		self.weight = 2*(np.random.rand(3,2)-0.5)
 
 	def Mutate(self):
@@ -21,12 +24,15 @@ class SOLUTION:
 		self.Create_Robot()
 		self.generate_brain()
 
-		os.system("python3 simulate.py "+ ("GUI" if GUI else "DIRECT"))
+		os.system("python3 simulate.py "+ ("GUI" if GUI else "DIRECT") + " &")
 
 		with open("fitness.txt","r") as fitnessfile :
 			self.fitness = float(fitnessfile.read())
 			#print(self.fitness)
 
+
+	def Set_ID(self,ID):
+		self.myID = ID
 
 	def Create_World(self):
 
@@ -61,7 +67,7 @@ class SOLUTION:
 
 	def generate_brain(self):
 
-		pyrosim.Start_NeuralNetwork("brain.nndf")
+		pyrosim.Start_NeuralNetwork("brains/brain"+str(self.myID) +".nndf")
 		pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
 
 		pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LegFront")
