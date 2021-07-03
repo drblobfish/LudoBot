@@ -8,6 +8,7 @@ import constants as c
 
 import numpy as np
 import random
+import os
 
 from sensor import SENSOR
 from motor import MOTOR
@@ -17,11 +18,18 @@ from motor import MOTOR
 class ROBOT:
 	def __init__(self,solutionID):
 
+		self.solutionID = solutionID
+		self.brainFilePATH = "brains/brain"+str(self.solutionID)+".nndf"
+		self.fitnessFilePATH = 'fitnesses/fitness'+str(self.solutionID)+'.txt'
+		self.tempFitnessFilePATH = 'fitnesses/temp'+str(self.solutionID)+'.txt'
+
+
 		self.robot = p.loadURDF("body.urdf")
 		pyrosim.Prepare_To_Simulate("body.urdf")
 		self.Prepare_To_Sense()
 		self.Prepare_To_Act()
-		self.nn = NEURAL_NETWORK("brains/brain"+str(solutionID)+".nndf")
+		self.nn = NEURAL_NETWORK(self.brainFilePATH)
+		os.system("rm "+ self.brainFilePATH)
 
 	
 	def Get_Fitness(self):
@@ -29,8 +37,10 @@ class ROBOT:
 		self.position0fLink0 = self.stateOfLink0[0]
 		self.xCoordOfLink0 = self.position0fLink0[0]
 
-		with open('fitness.txt','w') as fitnessFile :
+		with open(self.tempFitnessFilePATH,'w') as fitnessFile :
 			fitnessFile.write(str(self.xCoordOfLink0))
+
+		os.system("mv "+ self.tempFitnessFilePATH +" "+ self.fitnessFilePATH)
 		
 
 	def Prepare_To_Sense(self):

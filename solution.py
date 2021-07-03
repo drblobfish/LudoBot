@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import os
+import time
 
 import pyrosim.pyrosim as pyrosim
 
@@ -19,16 +20,30 @@ class SOLUTION:
 		self.weight[randomCol,randomRow] = random.random()*2-1
 
 	def Evaluate(self,GUI = False):
-		
+
+		self.StartSimulation(GUI)
+
+		self.WaitSimToEnd()
+
+	def StartSimulation(self,GUI=False):
 		self.Create_World()
 		self.Create_Robot()
 		self.generate_brain()
 
-		os.system("python3 simulate.py "+ ("GUI" if GUI else "DIRECT") + " &")
+		os.system("python3 simulate.py "+ ("GUI " if GUI else "DIRECT ") +str(self.myID)+ " &")
 
-		with open("fitness.txt","r") as fitnessfile :
+
+	def WaitSimToEnd(self):
+
+		self.fitnessFilePATH = "fitnesses/fitness"+str(self.myID)+".txt"
+		
+		while not os.path.exists(self.fitnessFilePATH):
+			time.sleep(0.01)
+
+		with open(self.fitnessFilePATH,"r") as fitnessfile :
 			self.fitness = float(fitnessfile.read())
-			#print(self.fitness)
+
+		os.system("rm "+ self.fitnessFilePATH)
 
 
 	def Set_ID(self,ID):
