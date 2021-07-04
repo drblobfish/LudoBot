@@ -1,6 +1,6 @@
 import numpy as np
 
-NUMBER_STEP = 1000
+NUMBER_STEP = 2000
 
 AMPLITUDE = 0.5
 FREQUENCY = 10

@@ -30,7 +30,7 @@ class SOLUTION:
 		self.Create_Robot()
 		self.generate_brain()
 
-		os.system("python3 simulate.py "+ ("GUI " if GUI else "DIRECT ") +str(self.myID)+ " &")
+		os.system("python3 simulate.py "+ ("GUI " if GUI else "DIRECT ") +str(self.myID)+ " > /dev/null 2&>1 &")
 
 
 	def WaitSimToEnd(self):
