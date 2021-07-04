@@ -84,6 +84,25 @@ def Prepare_Link_Dictionary(urdfFileName):
 
     f.close()
 
+def Get_Link_Names(urdfFileName):
+
+    linkNames = []
+
+    f = open(urdfFileName,"r")
+
+    for line in f.readlines():
+
+        if "link name" in line:
+
+            line = line.split('"')
+
+            linkName = line[1]
+
+            linkNames.append(linkName)
+
+    f.close()
+    return linkNames
+
 def Prepare_Joint_Dictionary(urdfFileName):
 
     global jointNamesToIndices
@@ -107,6 +126,25 @@ def Prepare_Joint_Dictionary(urdfFileName):
             jointIndex = jointIndex + 1
 
     f.close()
+
+def Get_Joint_Names(urdfFileName):
+
+    jointNames = []
+
+    f = open(urdfFileName,"r")
+
+    for line in f.readlines():
+
+        if "joint name" in line:
+
+            line = line.split('"')
+
+            jointName = line[1]
+
+            jointNames.append(jointName)
+
+    f.close()
+    return jointNames
 
 def Prepare_To_Simulate(urdfFileName):
 
@@ -136,9 +174,9 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Joint(name,parent,child,type,position):
+def Send_Joint(name,parent,child,type,position,jointAxis):
 
-    joint = JOINT(name,parent,child,type,position)
+    joint = JOINT(name,parent,child,type,position,jointAxis)
 
     joint.Save(f)
 
